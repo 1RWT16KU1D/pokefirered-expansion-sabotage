@@ -142,8 +142,19 @@ Debug_EventScript_Text_DefensiveIVs:
 	.string "HP IVs: {STR_VAR_1}, DEF IVs: {STR_VAR_2}, SPDEF IVs: {STR_VAR_3}$"
 
 Debug_EventScript_Script_1::
+	setflag B_FLAG_TERA_ORB_CHARGED
+	additem ITEM_TERA_ORB 1
+	givemon SPECIES_HIPPOWDON 10 ITEM_SMOOTH_ROCK 0 NATURE_ADAMANT 0 0 252 252 0 0 0 0 31 31 31 31 31 31 MOVE_EARTHQUAKE MOVE_SLACK_OFF MOVE_STONE_EDGE MOVE_NONE 1 0 TYPE_GROUND 10
+	trainerbattle_single TRAINER_DEVELOPER_PATTON, DebugMenu_Developer_Text_BattleStart, DebugMenu_Developer_Text_BattleEnd
 	release
 	end
+
+DebugMenu_Developer_Text_BattleStart::
+	.string "Let's battle!$"
+
+DebugMenu_Developer_Text_BattleEnd::
+	.string "Aw, shucks...\n"
+	.string "I lost!$"
 
 Debug_EventScript_Script_2::
 	release

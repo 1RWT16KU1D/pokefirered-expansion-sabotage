@@ -15414,3 +15414,24 @@ IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 Muk
 Level: 39
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+
+=== TRAINER_DEVELOPER_PATTON ===
+Name: Patton
+Class: Developer
+Pic: RS Gentleman
+Gender: Male
+Music: Male
+Items : Tera Orb / None / None / None
+Double Battle: No
+AI: Try To Faint / Check Viability
+
+Drapion @ Scope Lens
+Level: 10
+IVs: 31 HP / 31 Atk / 31 Def / 0 SpA / 31 SpD / 31 Spe
+EVs: 252 HP / 252 Atk / 0 Def / 0 SpA / 0 SpD / 4 Spe
+Shiny: Yes
+Tera Type: Steel
+- Cross Poison
+- Night Slash
+- Swords Dance
+- Earthquake

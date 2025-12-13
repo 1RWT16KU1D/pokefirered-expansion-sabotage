@@ -39626,3 +39626,54 @@
             },
         },
     },
+#line 15418
+    [DIFFICULTY_NORMAL][TRAINER_DEVELOPER_PATTON] =
+    {
+#line 15419
+        .trainerName = _("Patton"),
+#line 15420
+        .trainerClass = TRAINER_CLASS_DEVELOPER,
+#line 15421
+        .trainerPic = TRAINER_PIC_RS_GENTLEMAN,
+        .encounterMusic_gender =
+#line 15423
+            TRAINER_ENCOUNTER_MUSIC_MALE,
+#line 15424
+        .items = { ITEM_TERA_ORB, ITEM_NONE, ITEM_NONE, ITEM_NONE },
+#line 15425
+        .battleType = TRAINER_BATTLE_TYPE_SINGLES,
+#line 15426
+        .aiFlags = AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
+#line 0
+        .trainerBackPic = TRAINER_PIC_RS_GENTLEMAN,
+        .partySize = 1,
+        .party = (const struct TrainerMon[])
+        {
+            {
+#line 15428
+            .species = SPECIES_DRAPION,
+            .gender = TRAINER_MON_RANDOM_GENDER,
+#line 15428
+            .heldItem = ITEM_SCOPE_LENS,
+#line 15431
+            .ev = TRAINER_PARTY_EVS(252, 252, 0, 4, 0, 0),
+#line 15430
+            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 0, 31),
+#line 15429
+            .lvl = 10,
+            .nature = NATURE_HARDY,
+#line 15432
+            .isShiny = TRUE,
+            .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+#line 15433
+            .teraType = TYPE_STEEL,
+            .moves = {
+#line 15434
+                MOVE_CROSS_POISON,
+                MOVE_NIGHT_SLASH,
+                MOVE_SWORDS_DANCE,
+                MOVE_EARTHQUAKE,
+            },
+            },
+        },
+    },
