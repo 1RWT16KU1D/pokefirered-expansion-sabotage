@@ -73,6 +73,7 @@
 // #include "follower_npc.h"
 #include "load_save.h"
 #include "test/test_runner_battle.h"
+#include "battle_sabotage.h"
 
 // table to avoid ugly powing on gba (courtesy of doesnt)
 // this returns (i^2.5)/4
@@ -7991,6 +7992,16 @@ static bool32 DoSwitchInEffectsForBattler(u32 battler)
             if (ItemBattleEffects(i, 0, GetBattlerHoldEffect(i), IsWhiteHerbActivation))
                 return TRUE;
         }
+
+        if (IsSabotageBattle())
+        {
+            for (i = 0; i < gBattlersCount; i++)
+            {
+                if (SabotageBattleEffects(SABOTAGE_EFFECT_ON_SWITCHIN, i, GetCurrentPassiveTrap()))
+                    return TRUE;
+            }
+        }
+
         for (i = 0; i < gBattlersCount; i++)
         {
             if (AbilityBattleEffects(ABILITYEFFECT_OPPORTUNIST, i, GetBattlerAbility(i), 0, 0))

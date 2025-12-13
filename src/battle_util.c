@@ -39,6 +39,7 @@
 #include "pokedex.h"
 #include "mail.h"
 #include "field_weather.h"
+#include "battle_sabotage.h"
 #include "constants/abilities.h"
 #include "constants/battle_anim.h"
 #include "constants/battle_move_effects.h"
@@ -5580,6 +5581,68 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
         RecordAbilityBattle(battler, gLastUsedAbility);
     if (effect && caseID <= ABILITYEFFECT_MOVE_END)
         gBattlerAbility = battler;
+
+    return effect;
+}
+
+bool8 SabotageBattleEffects(enum SabotageEffects caseId, u32 battler, enum SabotageTraps trapId)
+{
+    bool8 effect = FALSE;
+    u32 side = 0;
+    u32 i = 0, j = 0;
+    u32 partner = 0;
+
+    if (gBattleTypeFlags & (BATTLE_TYPE_SAFARI | BATTLE_TYPE_OLD_MAN_TUTORIAL))
+        return 0;
+
+    if (gBattlerAttacker >= gBattlersCount)
+        gBattlerAttacker = battler;
+
+    gLastUsedAbility = GetBattlerAbility(battler);
+
+    switch (caseId)
+    {
+        case SABOTAGE_EFFECT_ON_SWITCHIN:
+        {
+            switch (trapId)
+            {
+                case SABOTAGE_TRAP_GRAVEYARD:
+                    if (!IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
+                    {
+                        gBattleMons[battler].types[2] = TYPE_GHOST;
+                        effect = TRUE;
+                    }
+                    break;
+                
+                default:
+                    break;
+            }
+
+            break;
+        }
+
+        case SABOTAGE_EFFECT_END_TURN:
+        {
+            switch (trapId)
+            {
+                case SABOTAGE_TRAP_GRAVEYARD:
+                    if (IsBattlerAlive(battler) && gBattleMons[battler].types[2] != TYPE_GHOST)
+                    {
+                        gBattleMons[battler].types[2] = TYPE_GHOST;
+                        effect = TRUE;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        case SABOTAGE_EFFECT_BATTLE_START:
+        {
+            break;
+        }
+    }
 
     return effect;
 }

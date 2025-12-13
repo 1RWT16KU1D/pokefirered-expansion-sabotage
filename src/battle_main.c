@@ -11,6 +11,7 @@
 #include "battle_main.h"
 #include "battle_message.h"
 // #include "battle_pyramid.h"
+#include "battle_sabotage.h"
 #include "battle_scripts.h"
 #include "battle_setup.h"
 #include "battle_tower.h"

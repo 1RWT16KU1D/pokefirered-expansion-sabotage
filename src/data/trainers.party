@@ -15421,17 +15421,26 @@ Class: Developer
 Pic: RS Gentleman
 Gender: Male
 Music: Male
-Items : Tera Orb / None / None / None
+Items : Tera Orb / Mega Ring / None / None
 Double Battle: No
 AI: Try To Faint / Check Viability
 
 Drapion @ Scope Lens
-Level: 10
+Level: 50
 IVs: 31 HP / 31 Atk / 31 Def / 0 SpA / 31 SpD / 31 Spe
 EVs: 252 HP / 252 Atk / 0 Def / 0 SpA / 0 SpD / 4 Spe
 Shiny: Yes
-Tera Type: Steel
+Tera Type: Poison
 - Cross Poison
 - Night Slash
 - Swords Dance
 - Earthquake
+
+Aggron @ Aggronite
+Level: 50
+IVs: 31 HP / 31 Atk / 31 Def / 0 SpA / 31 SpD / 31 Spe
+EVs: 252 HP / 4 Atk / 252 Def / 0 SpA / 0 SpD / 0 Spe
+- Body Press
+- Iron Defense
+- Earthquake
+- Heavy Slam

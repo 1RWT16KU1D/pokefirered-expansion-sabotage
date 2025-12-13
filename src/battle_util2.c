@@ -12,6 +12,7 @@
 #include "random.h"
 #include "battle_scripts.h"
 #include "constants/battle_string_ids.h"
+#include "battle_sabotage.h"
 
 void AllocateBattleResources(void)
 {
@@ -35,6 +36,13 @@ void AllocateBattleResources(void)
 #if B_FLAG_SKY_BATTLE
     gBattleStruct->isSkyBattle = FlagGet(B_FLAG_SKY_BATTLE);
 #endif
+    
+    if (IsSabotageBattle())
+    {
+        ResetSabotageCounters();
+        //SetRandomActiveTrap(); - Turned off for debugging purposes
+        SetRandomPassiveTrap();
+    }
 
     gBattleResources = AllocZeroed(sizeof(*gBattleResources));
     gBattleResources->secretBase = AllocZeroed(sizeof(*gBattleResources->secretBase));

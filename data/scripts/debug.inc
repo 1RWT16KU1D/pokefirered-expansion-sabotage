@@ -143,8 +143,11 @@ Debug_EventScript_Text_DefensiveIVs:
 
 Debug_EventScript_Script_1::
 	setflag B_FLAG_TERA_ORB_CHARGED
+	setflag B_FLAG_SABOTAGE_BATTLE
 	additem ITEM_TERA_ORB 1
-	givemon SPECIES_HIPPOWDON 10 ITEM_SMOOTH_ROCK 0 NATURE_ADAMANT 0 0 252 252 0 0 0 0 31 31 31 31 31 31 MOVE_EARTHQUAKE MOVE_SLACK_OFF MOVE_STONE_EDGE MOVE_NONE 1 0 TYPE_GROUND 10
+	additem ITEM_Z_POWER_RING 1
+	givemon SPECIES_TYRANITAR 65 ITEM_DARKINIUM_Z 0 NATURE_ADAMANT 0 0 252 252 0 0 0 0 31 31 31 31 31 31 MOVE_EARTHQUAKE MOVE_SLACK_OFF MOVE_STONE_EDGE MOVE_CRUNCH 1 0 TYPE_GROUND 10
+	givemon SPECIES_ARCEUS 65 ITEM_EARTH_PLATE 0 NATURE_ADAMANT 0 0 252 252  0 0 0 0 31 31 31 31 31 31 MOVE_EARTHQUAKE MOVE_EXTREME_SPEED MOVE_SWORDS_DANCE MOVE_JUDGMENT 1 0 TYPE_GROUND 10
 	trainerbattle_single TRAINER_DEVELOPER_PATTON, DebugMenu_Developer_Text_BattleStart, DebugMenu_Developer_Text_BattleEnd
 	release
 	end
@@ -153,8 +156,7 @@ DebugMenu_Developer_Text_BattleStart::
 	.string "Let's battle!$"
 
 DebugMenu_Developer_Text_BattleEnd::
-	.string "Aw, shucks...\n"
-	.string "I lost!$"
+	.string "I should've won...$"
 
 Debug_EventScript_Script_2::
 	release
