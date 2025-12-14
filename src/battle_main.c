@@ -3549,6 +3549,12 @@ static void DoBattleIntro(void)
                 gBattleStruct->startingStatus = VarGet(B_VAR_STARTING_STATUS);
                 gBattleStruct->startingStatusTimer = VarGet(B_VAR_STARTING_STATUS_TIMER);
             }
+
+            if (IsSabotageBattle())
+            {
+                for (u32 i = 0; i < gBattlersCount; i++)
+                    SabotageBattleEffects(SABOTAGE_EFFECT_BATTLE_START, i, GetCurrentPassiveTrap());
+            }
             gBattleMainFunc = TryDoEventsBeforeFirstTurn;
         }
         break;

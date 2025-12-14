@@ -5602,15 +5602,16 @@ bool8 SabotageBattleEffects(enum SabotageEffects caseId, u32 battler, enum Sabot
 
     switch (caseId)
     {
+        // When a battler switches in
         case SABOTAGE_EFFECT_ON_SWITCHIN:
         {
             switch (trapId)
             {
                 case SABOTAGE_TRAP_GRAVEYARD:
-                    if (!IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
+                    if (IsBattlerAlive(battler) && !IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
                     {
                         gBattleMons[battler].types[2] = TYPE_GHOST;
-                        effect = TRUE;
+                        // effect = TRUE; // Temporarily disabled to prevent crash
                     }
                     break;
                 
@@ -5621,12 +5622,13 @@ bool8 SabotageBattleEffects(enum SabotageEffects caseId, u32 battler, enum Sabot
             break;
         }
 
+        // End of turn - timer is set to 0 and a new trap is set
         case SABOTAGE_EFFECT_END_TURN:
         {
             switch (trapId)
             {
                 case SABOTAGE_TRAP_GRAVEYARD:
-                    if (IsBattlerAlive(battler) && gBattleMons[battler].types[2] != TYPE_GHOST)
+                    if (IsBattlerAlive(battler) && !IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
                     {
                         gBattleMons[battler].types[2] = TYPE_GHOST;
                         effect = TRUE;
@@ -5638,9 +5640,23 @@ bool8 SabotageBattleEffects(enum SabotageEffects caseId, u32 battler, enum Sabot
             }
         }
 
+        // Beginning of battle - set up traps
         case SABOTAGE_EFFECT_BATTLE_START:
         {
+            switch (trapId)
+            {
+                case SABOTAGE_TRAP_GRAVEYARD:
+                    if (IsBattlerAlive(battler) && !IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
+                    {
+                        gBattleMons[battler].types[2] = TYPE_GHOST;
+                        effect = TRUE;
+                    }
+                    break;
+                
+                default:
+                    break;
             break;
+            }
         }
     }
 
