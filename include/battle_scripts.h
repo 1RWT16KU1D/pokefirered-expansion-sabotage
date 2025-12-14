@@ -850,11 +850,12 @@ extern const u8 BattleScript_GhostGetOutGetOut[];
 extern const u8 BattleScript_TooScaredToMove[];
 extern const u8 BattleScript_SilphScopeUnveiled[];
 
-
-
 // pokefirered
 extern const u8 BattleScript_BattleTowerTrainerBattleWon[];
 extern const u8 BattleScript_MoveUsedLoafingAroundMsg[];
 extern const u8 BattleScript_OldMan_Pokedude_CaughtMessage[];
+
+// Sabotage Battles
+extern const u8 BattleScript_SabotageGraveyardActivates[];
 
 #endif // GUARD_BATTLE_SCRIPTS_H

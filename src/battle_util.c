@@ -5611,7 +5611,9 @@ bool8 SabotageBattleEffects(enum SabotageEffects caseId, u32 battler, enum Sabot
                     if (IsBattlerAlive(battler) && !IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
                     {
                         gBattleMons[battler].types[2] = TYPE_GHOST;
-                        // effect = TRUE; // Temporarily disabled to prevent crash
+                        gBattleScripting.battler = battler;
+                        gBattlescriptCurrInstr = BattleScript_SabotageGraveyardActivates;
+                        effect = TRUE;
                     }
                     break;
                 

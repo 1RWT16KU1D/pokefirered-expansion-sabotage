@@ -7958,6 +7958,12 @@ static bool32 DoSwitchInEffectsForBattler(u32 battler)
         if (DoSwitchInAbilities(battler))
             return TRUE;
 
+        if (IsSabotageBattle())
+        {
+            if (SabotageBattleEffects(SABOTAGE_EFFECT_ON_SWITCHIN, battler, GetCurrentPassiveTrap()))
+                return TRUE;
+        }
+
         if (ItemBattleEffects(battler, 0, GetBattlerHoldEffect(battler), IsOnSwitchInActivation))
             return TRUE;
 
@@ -7991,15 +7997,6 @@ static bool32 DoSwitchInEffectsForBattler(u32 battler)
         {
             if (ItemBattleEffects(i, 0, GetBattlerHoldEffect(i), IsWhiteHerbActivation))
                 return TRUE;
-        }
-
-        if (IsSabotageBattle())
-        {
-            for (i = 0; i < gBattlersCount; i++)
-            {
-                if (SabotageBattleEffects(SABOTAGE_EFFECT_ON_SWITCHIN, i, GetCurrentPassiveTrap()))
-                    return TRUE;
-            }
         }
 
         for (i = 0; i < gBattlersCount; i++)
