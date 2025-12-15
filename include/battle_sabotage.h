@@ -2,6 +2,9 @@
 
 #include "constants/sabotage.h"
 
+#define SABOTAGE_TIMER_ACTIVE gBattleStruct->sabotage.activeTrapCtr
+#define SABOTAGE_TIMER_PASSIVE gBattleStruct->sabotage.passiveTrapCtr
+
 // Exported Functions
 u8 GetRandomTrap(bool8 isActive); // Returns a random trap ID
 void SetRandomActiveTrap(void); // Sets a random active trap

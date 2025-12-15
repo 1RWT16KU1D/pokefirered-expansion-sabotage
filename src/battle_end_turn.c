@@ -5,6 +5,7 @@
 #include "battle_controllers.h"
 #include "battle_ai_util.h"
 #include "battle_gimmick.h"
+#include "battle_sabotage.h"
 #include "battle_scripts.h"
 #include "constants/battle.h"
 #include "constants/battle_string_ids.h"
@@ -1381,6 +1382,37 @@ static bool32 HandleEndTurnDynamax(u32 battler)
     return effect;
 }
 
+static bool32 HandleEndTurnSabotageTrapEffects(u32 battler)
+{
+    bool32 effect = FALSE;
+    gBattleStruct->eventState.endTurnBattler++;
+
+    if (IsSabotageBattle() && --SABOTAGE_TIMER_PASSIVE == 0)
+    {
+        u8 trapId = GetCurrentPassiveTrap();
+
+        switch (trapId)
+        {
+            case SABOTAGE_TRAP_GRAVEYARD:
+                if (IsBattlerAlive(battler) && IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
+                {
+                    gBattleMons[battler].types[2] = TYPE_GHOST;
+                    gBattlescripting.battler = battler;
+                    BattleScriptExecute(BattleScript_SabotageGraveyardActivatesEndTurn);
+                    effect = TRUE;
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        ResetPassiveTrapCounter();
+    }
+
+    return effect;
+}
+
 /*
  * Various end turn effects that happen after all battlers moved.
  * Each Case will apply the effects for each battler. Moving to the next case when all battlers are done.
@@ -1443,6 +1475,7 @@ static bool32 (*const sEndTurnEffectHandlers[])(u32 battler) =
     [ENDTURN_FORM_CHANGE_ABILITIES] = HandleEndTurnFormChangeAbilities,
     [ENDTURN_EJECT_PACK] = HandleEndTurnEjectPack,
     [ENDTURN_DYNAMAX] = HandleEndTurnDynamax,
+    [ENDTURN_SABOTAGE_EFFECTS] = HandleEndTurnSabotageTrapEffects,
 };
 
 u32 DoEndTurnEffects(void)

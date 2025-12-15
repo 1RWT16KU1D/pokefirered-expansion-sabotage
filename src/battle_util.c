@@ -5612,7 +5612,7 @@ bool8 SabotageBattleEffects(enum SabotageEffects caseId, u32 battler, enum Sabot
                     {
                         gBattleMons[battler].types[2] = TYPE_GHOST;
                         gBattleScripting.battler = battler;
-                        gBattlescriptCurrInstr = BattleScript_SabotageGraveyardActivates;
+                        gBattlescriptCurrInstr = BattleScript_SabotageGraveyardActivatesSwitchIn;
                         effect = TRUE;
                     }
                     break;
@@ -5622,24 +5622,6 @@ bool8 SabotageBattleEffects(enum SabotageEffects caseId, u32 battler, enum Sabot
             }
 
             break;
-        }
-
-        // End of turn - timer is set to 0 and a new trap is set
-        case SABOTAGE_EFFECT_END_TURN:
-        {
-            switch (trapId)
-            {
-                case SABOTAGE_TRAP_GRAVEYARD:
-                    if (IsBattlerAlive(battler) && !IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
-                    {
-                        gBattleMons[battler].types[2] = TYPE_GHOST;
-                        effect = TRUE;
-                    }
-                    break;
-
-                default:
-                    break;
-            }
         }
 
         // Beginning of battle - set up traps

@@ -3444,10 +3444,15 @@ BattleScript_DoGhostCurse::
 	tryfaintmon BS_ATTACKER
 	goto BattleScript_MoveEnd
 
-BattleScript_SabotageGraveyardActivates::
+BattleScript_SabotageGraveyardActivatesSwitchIn::
 	volatileanimation BS_SCRIPTING VOLATILE_CURSED
 	waitanimation
 	goto BattleScript_MoveEnd
+
+BattleScript_SabotageGraveyardActivatesEndTurn::
+	volatileanimation BS_SCRIPTING VOLATILE_CURSED
+	waitanimation
+	end2
 
 BattleScript_EffectProtect::
 BattleScript_EffectEndure::
