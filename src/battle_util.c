@@ -5835,6 +5835,8 @@ bool32 CanBattlerEscape(u32 battler) // no ability check
         return FALSE;
     else if (gBattleMons[battler].volatiles.semiInvulnerable == STATE_SKY_DROP)
         return FALSE;
+    else if (IsSabotageBattle() && (GetCurrentPassiveTrap() == SABOTAGE_TRAP_TRAPPERS_TERRITORY))
+        return FALSE;
     else
         return TRUE;
 }

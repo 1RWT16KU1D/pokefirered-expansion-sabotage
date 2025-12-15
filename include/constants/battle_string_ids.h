@@ -732,6 +732,9 @@ enum StringID
     STRINGID_TRAINER1MON2COMEBACK,
     STRINGID_TRAINER1MON1AND2COMEBACK,
 
+    // Sabotage Battles
+    STRINGID_TRAPPERSTERRITORYACTIVATES,
+    STRINGID_GRAVEYARDACTIVATES,
     STRINGID_COUNT
 };
 
@@ -1188,6 +1191,19 @@ enum DamageNonTypesDmgStringID
     B_MSG_HURT_BY_VORTEX,
     B_MSG_BURNING_UP,
     B_MSG_HURT_BY_ROCKS_THROWN,
+};
+
+// gSabotageBattleActivationStringIds
+enum SabotageBattleActivationStringID
+{
+    B_MSG_TRAPPERS_TERRITORY_ACTIVATES,
+    B_MSG_GRAVEYARD_ACTIVATES,
+};
+
+// gSabotageBattleStringIds
+enum SabotageBattleStringID
+{
+    B_MSG_GRAVEYARD_TURNED_GHOST_TYPE,
 };
 
 #endif // GUARD_BATTLE_STRING_IDS_H
