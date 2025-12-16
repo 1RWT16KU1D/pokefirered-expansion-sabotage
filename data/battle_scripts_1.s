@@ -3444,16 +3444,6 @@ BattleScript_DoGhostCurse::
 	tryfaintmon BS_ATTACKER
 	goto BattleScript_MoveEnd
 
-BattleScript_SabotageGraveyardActivatesSwitchIn::
-	volatileanimation BS_SCRIPTING VOLATILE_CURSED
-	waitanimation
-	goto BattleScript_MoveEnd
-
-BattleScript_SabotageGraveyardActivatesEndTurn::
-	volatileanimation BS_SCRIPTING VOLATILE_CURSED
-	waitanimation
-	end2
-
 BattleScript_EffectProtect::
 BattleScript_EffectEndure::
 	attackcanceler
@@ -8951,4 +8941,21 @@ BattleScript_SilphScopeUnveiled::
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_GHOSTWASMAROWAK
 	waitmessage B_WAIT_TIME_LONG
+	end2
+
+@ Sabotage Battles
+
+BattleScript_Sabotage_TrapActivationMsg::
+	printfromtable gSabotage_TrapActivationMsgIds
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_SabotageGraveyardActivatesSwitchIn::
+	volatileanimation BS_SCRIPTING VOLATILE_CURSED
+	waitanimation
+	goto BattleScript_MoveEnd
+
+BattleScript_SabotageGraveyardActivatesEndTurn::
+	volatileanimation BS_SCRIPTING VOLATILE_CURSED
+	waitanimation
 	end2

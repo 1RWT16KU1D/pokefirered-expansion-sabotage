@@ -5585,7 +5585,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
     return effect;
 }
 
-bool8 SabotageBattleEffects(enum SabotageEffects caseId, u32 battler, enum SabotageTraps trapId)
+bool32 SabotageBattleEffects(enum SabotageEffects caseId, u32 battler, enum SabotageTraps trapId)
 {
     bool8 effect = FALSE;
     u32 side = 0;
@@ -5616,7 +5616,7 @@ bool8 SabotageBattleEffects(enum SabotageEffects caseId, u32 battler, enum Sabot
                         effect = TRUE;
                     }
                     break;
-                
+
                 default:
                     break;
             }

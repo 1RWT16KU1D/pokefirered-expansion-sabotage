@@ -1394,10 +1394,10 @@ static bool32 HandleEndTurnSabotageTrapEffects(u32 battler)
         switch (trapId)
         {
             case SABOTAGE_TRAP_GRAVEYARD:
-                if (IsBattlerAlive(battler) && IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
+                if (IsBattlerAlive(battler) && !IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
                 {
                     gBattleMons[battler].types[2] = TYPE_GHOST;
-                    gBattlescripting.battler = battler;
+                    gBattleScripting.battler = battler;
                     BattleScriptExecute(BattleScript_SabotageGraveyardActivatesEndTurn);
                     effect = TRUE;
                 }

@@ -20,6 +20,6 @@ bool8 IsValidTrapId(u8 trapId); // Returns whether the given trap ID is valid
 bool8 IsSabotageBattle(void); // Returns whether the current battle is a Sabotage battle
 bool8 IsTrappersTerritorySwitchingPrevented(void); // Returns TRUE when the current trap blocks switching
 
-bool8 SabotageBattleEffects(enum SabotageEffects caseId, u32 battler, enum SabotageTraps trapId); // Applies the effects of the given trap ID
+bool32 SabotageBattleEffects(enum SabotageEffects caseId, u32 battler, enum SabotageTraps trapId); // Applies the effects of the given trap ID
 u8 GetCurrentActiveTrap(void); // Returns the current active trap ID
 u8 GetCurrentPassiveTrap(void); // Returns the current passive trap ID
