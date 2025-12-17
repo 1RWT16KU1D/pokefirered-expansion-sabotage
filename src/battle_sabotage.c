@@ -137,7 +137,13 @@ u8 GetRandomTrap(bool8 isActive)
     u8 start = isActive ? SABOTAGE_TRAP_PASSIVE_COUNT : SABOTAGE_TRAP_TRAPPERS_TERRITORY;
     u8 end = isActive ? SABOTAGE_TRAP_TOTAL_COUNT : SABOTAGE_TRAP_WRONG_INTUITION;
 
-    return start + (Random() % (end - start));
+    u8 trapId;
+
+    // Prevent getting the same trap twice in a row
+    do trapId = start + (Random() % (end - start));
+    while (trapId == GetCurrentActiveTrap() || trapId == GetCurrentPassiveTrap());
+
+    return trapId;
 }
 
 void SetRandomActiveTrap(void)

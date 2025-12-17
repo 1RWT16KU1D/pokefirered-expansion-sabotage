@@ -857,7 +857,5 @@ extern const u8 BattleScript_OldMan_Pokedude_CaughtMessage[];
 
 // Sabotage Battles
 extern const u8 BattleScript_Sabotage_TrapActivationMsg[];
-extern const u8 BattleScript_SabotageGraveyardActivatesSwitchIn[];
-extern const u8 BattleScript_SabotageGraveyardActivatesEndTurn[];
 
 #endif // GUARD_BATTLE_SCRIPTS_H

@@ -1387,18 +1387,17 @@ static bool32 HandleEndTurnSabotageTrapEffects(u32 battler)
     bool32 effect = FALSE;
     gBattleStruct->eventState.endTurnBattler++;
 
-    if (IsSabotageBattle() && --SABOTAGE_TIMER_PASSIVE == 0)
+    if (battler == 0 && IsSabotageBattle() && --SABOTAGE_TIMER_PASSIVE == 0)
     {
-        u8 trapId = GetCurrentPassiveTrap();
+        SetRandomPassiveTrap();
 
+        u8 trapId = GetCurrentPassiveTrap();
         switch (trapId)
         {
             case SABOTAGE_TRAP_GRAVEYARD:
                 if (IsBattlerAlive(battler) && !IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
                 {
                     gBattleMons[battler].types[2] = TYPE_GHOST;
-                    gBattleScripting.battler = battler;
-                    BattleScriptExecute(BattleScript_SabotageGraveyardActivatesEndTurn);
                     effect = TRUE;
                 }
                 break;
@@ -1407,6 +1406,8 @@ static bool32 HandleEndTurnSabotageTrapEffects(u32 battler)
                 break;
         }
 
+        gBattleCommunication[MULTISTRING_CHOOSER] = trapId - 1;
+        BattleScriptExecute(BattleScript_Sabotage_TrapActivationMsg);
         ResetPassiveTrapCounter();
     }
 

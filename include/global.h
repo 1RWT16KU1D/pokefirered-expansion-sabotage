@@ -264,6 +264,8 @@ struct SaveBlock3
 
 extern struct SaveBlock3 *gSaveBlock3Ptr;
 
+#define unusedArg __attribute__((unused))
+
 struct Pokedex
 {
     /*0x00*/ u8 order;
