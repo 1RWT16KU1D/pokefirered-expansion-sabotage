@@ -1387,7 +1387,7 @@ static bool32 HandleEndTurnSabotageTrapEffects(u32 battler)
     bool32 effect = FALSE;
     gBattleStruct->eventState.endTurnBattler++;
 
-    if (battler == 0 && IsSabotageBattle() && --SABOTAGE_TIMER_PASSIVE == 0)
+    if (IsSabotageBattle() && (battler == 0) && (--SABOTAGE_TIMER_PASSIVE == 0))
     {
         SetRandomPassiveTrap();
 

@@ -5588,7 +5588,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
 bool32 SabotageBattleEffects(enum SabotageEffects caseId, u32 battler, enum SabotageTraps trapId)
 {
     bool8 effect = FALSE;
-    u32 unusedArg side = 0;
+    u32 unusedArg side = GetBattlerSide(battler);
     u32 unusedArg partner = 0;
 
     if (gBattleTypeFlags & (BATTLE_TYPE_SAFARI | BATTLE_TYPE_OLD_MAN_TUTORIAL))

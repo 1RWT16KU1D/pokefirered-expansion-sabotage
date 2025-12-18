@@ -7958,11 +7958,8 @@ static bool32 DoSwitchInEffectsForBattler(u32 battler)
         if (DoSwitchInAbilities(battler))
             return TRUE;
 
-        if (IsSabotageBattle())
-        {
-            if (SabotageBattleEffects(SABOTAGE_EFFECT_ON_SWITCHIN, battler, GetCurrentPassiveTrap()))
-                return TRUE;
-        }
+        if (IsSabotageBattle() && SabotageBattleEffects(SABOTAGE_EFFECT_ON_SWITCHIN, battler, GetCurrentPassiveTrap()))
+            return TRUE;
 
         if (ItemBattleEffects(battler, 0, GetBattlerHoldEffect(battler), IsOnSwitchInActivation))
             return TRUE;
