@@ -329,6 +329,7 @@ static void TryUpdateRoundTurnOrder(void);
 static bool32 ChangeOrderTargetAfterAttacker(void);
 static bool32 SetTargetToNextPursuiter(u32 battlerDef);
 void ApplyExperienceMultipliers(s32 *expAmount, u8 expGetterMonId, u8 faintedBattler);
+static u8 GetPlayerPartyMemberCountForExpBonus(void);
 static void RemoveAllWeather(void);
 static void RemoveAllTerrains(void);
 static bool32 CanAbilityPreventStatLoss(enum Ability abilityDef);
@@ -14840,6 +14841,23 @@ u8 GetFirstFaintedPartyIndex(u8 battler)
     return PARTY_SIZE;
 }
 
+static u8 GetPlayerPartyMemberCountForExpBonus(void)
+{
+    u32 partyCount = 0;
+    u32 partyLimit = PARTY_SIZE;
+
+    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)
+        partyLimit = PARTY_SIZE / 2;
+
+    while (partyCount < partyLimit
+        && GetMonData(&gPlayerParty[partyCount], MON_DATA_SPECIES, NULL) != SPECIES_NONE)
+    {
+        partyCount++;
+    }
+
+    return partyCount;
+}
+
 void ApplyExperienceMultipliers(s32 *expAmount, u8 expGetterMonId, u8 faintedBattler)
 {
     enum HoldEffect holdEffect = GetMonHoldEffect(&gPlayerParty[expGetterMonId]);
@@ -14854,6 +14872,8 @@ void ApplyExperienceMultipliers(s32 *expAmount, u8 expGetterMonId, u8 faintedBat
         *expAmount = (*expAmount * 4915) / 4096;
     if (CheckBagHasItem(ITEM_EXP_CHARM, 1)) //is also for other exp boosting Powers if/when implemented
         *expAmount = (*expAmount * 150) / 100;
+    if (FlagGet(FLAG_SYS_CLASS_BREEDER))
+        *expAmount = (*expAmount * (100 + (3 * GetPlayerPartyMemberCountForExpBonus()))) / 100;
 
     if (B_SCALED_EXP >= GEN_5 && B_SCALED_EXP != GEN_6)
     {

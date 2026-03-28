@@ -4968,6 +4968,14 @@ bool32 DoesMonMeetAdditionalConditions(struct Pokemon *mon, const struct Evoluti
     return TRUE;
 }
 
+static u32 GetBreederAdjustedEvolutionLevel(u32 evolutionLevel)
+{
+    if (FlagGet(FLAG_SYS_CLASS_BREEDER))
+        return evolutionLevel - (evolutionLevel / 10);
+
+    return evolutionLevel;
+}
+
 u32 GetEvolutionTargetSpecies(struct Pokemon *mon, enum EvolutionMode mode, u16 evolutionItem, struct Pokemon *tradePartner, bool32 *canStopEvo, enum EvoState evoState)
 {
     int i;
@@ -5010,11 +5018,11 @@ u32 GetEvolutionTargetSpecies(struct Pokemon *mon, enum EvolutionMode mode, u16 
             switch (evolutions[i].method)
             {
             case EVO_LEVEL:
-                if (evolutions[i].param <= level)
+                if (GetBreederAdjustedEvolutionLevel(evolutions[i].param) <= level)
                     conditionsMet = TRUE;
                 break;
             case EVO_LEVEL_BATTLE_ONLY:
-                if (mode == EVO_MODE_BATTLE_ONLY && evolutions[i].param <= level)
+                if (mode == EVO_MODE_BATTLE_ONLY && GetBreederAdjustedEvolutionLevel(evolutions[i].param) <= level)
                     conditionsMet = TRUE;
                 break;
             }
@@ -5182,7 +5190,7 @@ bool8 IsMonPastEvolutionLevel(struct Pokemon *mon)
         switch (evolutions[i].method)
         {
         case EVO_LEVEL:
-            if (evolutions[i].param <= level)
+            if (GetBreederAdjustedEvolutionLevel(evolutions[i].param) <= level)
                 return TRUE;
             break;
         }
@@ -5539,9 +5547,15 @@ void AdjustFriendship(struct Pokemon *mon, u8 event)
         }
 
         mod = sFriendshipEventModifiers[event][friendshipLevel];
-        if (mod > 0 && holdEffect == HOLD_EFFECT_FRIENDSHIP_UP)
-            // 50% increase, rounding down
-            mod = (150 * mod) / 100;
+        if (mod > 0)
+        {
+            if (holdEffect == HOLD_EFFECT_FRIENDSHIP_UP)
+                // Soothe Bell: 50% increase, rounding down.
+                mod = (150 * mod) / 100;
+            if (FlagGet(FLAG_SYS_CLASS_BREEDER))
+                // Breeder class bonus: separate permanent 2x friendship gain boost.
+                mod = (150 * mod) / 100;
+        }
 
         friendship += mod;
         if (mod > 0)

@@ -160,6 +160,9 @@ DebugMenu_Developer_Text_BattleEnd::
 	.string "I should've won...$"
 
 Debug_EventScript_Script_2::
+	setflag FLAG_SYS_CLASS_BREEDER
+	additem ITEM_RARE_CANDY 4
+	givemon SPECIES_JOLTIK 32 ITEM_NONE 0 NATURE_MODEST 0 0 0 252 0 252 0 0 31 31 31 31 31 31 MOVE_THUNDER MOVE_BUG_BUZZ MOVE_STICKY_WEB MOVE_ENERGY_BALL 1 0 TYPE_GROUND 10
 	release
 	end
 
