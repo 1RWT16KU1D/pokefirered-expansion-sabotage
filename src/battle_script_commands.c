@@ -4064,6 +4064,54 @@ static bool32 CanApplyAdditionalEffect(const struct AdditionalEffect *additional
     return TRUE;
 }
 
+static bool32 IsBreederStatusResistanceAffectedBattler(u32 battler)
+{
+    if (!FlagGet(FLAG_SYS_CLASS_BREEDER) || !IsOnPlayerSide(battler))
+        return FALSE;
+
+    if ((gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)
+        && GetBattlerPosition(battler) == B_POSITION_PLAYER_RIGHT)
+        return FALSE;
+
+    return TRUE;
+}
+
+static u8 GetBreederStatusResistanceChance(void)
+{
+    u32 badgeCount = 0;
+
+    for (u32 badgeFlag = FLAG_BADGE01_GET; badgeFlag <= FLAG_BADGE08_GET; badgeFlag++)
+    {
+        if (FlagGet(badgeFlag))
+            badgeCount++;
+    }
+
+    if (badgeCount >= 6)
+        return 30;
+    if (badgeCount >= 3)
+        return 25;
+    return 20;
+}
+
+static bool32 IsBreederStatusResistanceMoveEffect(enum MoveEffect moveEffect)
+{
+    return moveEffect == MOVE_EFFECT_SLEEP
+        || moveEffect == MOVE_EFFECT_POISON
+        || moveEffect == MOVE_EFFECT_TOXIC
+        || moveEffect == MOVE_EFFECT_PARALYSIS;
+}
+
+static bool32 ShouldBreederStatusResistanceBlockEffect(u32 battler, enum MoveEffect moveEffect)
+{
+    if (!IsBreederStatusResistanceAffectedBattler(battler))
+        return FALSE;
+
+    if (!IsBreederStatusResistanceMoveEffect(moveEffect))
+        return FALSE;
+
+    return RandomPercentage(RNG_SECONDARY_EFFECT, GetBreederStatusResistanceChance());
+}
+
 static void SetToxicChainPriority(void)
 {
     if (gBattleStruct->toxicChainPriority)
@@ -4100,6 +4148,17 @@ static void Cmd_setadditionaleffects(void)
                 // Activate effect if it's primary (chance == 0) or if RNGesus says so
                 if ((percentChance == 0) || RandomPercentage(RNG_SECONDARY_EFFECT + gBattleStruct->additionalEffectsCounter, percentChance))
                 {
+                    if (!additionalEffect->self
+                        && ShouldBreederStatusResistanceBlockEffect(gBattlerTarget, additionalEffect->moveEffect))
+                    {
+                        gBattleStruct->additionalEffectsCounter++;
+                        if (numAdditionalEffects > gBattleStruct->additionalEffectsCounter)
+                            gBattlescriptCurrInstr = currentPtr;
+                        else
+                            gBattleScripting.moveEffect = gBattleStruct->additionalEffectsCounter = 0;
+                        return;
+                    }
+
                     gBattleCommunication[MULTISTRING_CHOOSER] = *((u8 *) &additionalEffect->multistring);
 
                     enum SetMoveEffectFlags flags = NO_FLAGS;
