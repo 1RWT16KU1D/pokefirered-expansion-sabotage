@@ -1289,8 +1289,7 @@ static inline void SetPassiveDamageAmount(u32 battler, s32 value)
 
 static inline void SetHealAmount(u32 battler, s32 value)
 {
-    if (value == 0)
-        value = 1;
+    value = ApplyBreederClassHealingModifier(value);
     gBattleStruct->passiveHpUpdate[battler] = -1 * value;
 }
 

@@ -1803,6 +1803,18 @@ s32 GetDrainedBigRootHp(u32 battler, s32 hp)
     return hp;
 }
 
+s32 ApplyBreederClassHealingModifier(s32 hp)
+{
+    if (hp == 0)
+        hp = 1;
+    if (FlagGet(FLAG_SYS_CLASS_BREEDER))
+        hp = (hp * 1100) / 1000;
+    if (hp == 0)
+        hp = 1;
+
+    return hp;
+}
+
 // Should always be the last check. Otherwise the ability might be wrongly recorded.
 bool32 IsAbilityAndRecord(u32 battler, enum Ability battlerAbility, enum Ability abilityToCheck)
 {

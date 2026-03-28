@@ -9878,7 +9878,7 @@ static void Cmd_manipulatedamage(void)
         gBattleStruct->passiveHpUpdate[gBattlerTarget] = GetNonDynamaxMaxHP(gBattlerAttacker);
         break;
     case DMG_BIG_ROOT:
-        gBattleStruct->passiveHpUpdate[gBattlerAttacker] = -1 * GetDrainedBigRootHp(gBattlerAttacker, gBattleStruct->passiveHpUpdate[gBattlerAttacker]);
+        SetHealAmount(gBattlerAttacker, GetDrainedBigRootHp(gBattlerAttacker, gBattleStruct->passiveHpUpdate[gBattlerAttacker]));
         break;
     }
 
@@ -14913,6 +14913,7 @@ void BS_ItemRestoreHP(void)
                 healAmount = healParam;
                 break;
         }
+        healAmount = ApplyBreederClassHealingModifier(healAmount);
         if (hp + healAmount > maxHP)
             healAmount = maxHP - hp;
 
