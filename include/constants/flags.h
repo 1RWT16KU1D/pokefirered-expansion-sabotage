@@ -1380,7 +1380,7 @@
 #define FLAG_SYS_CLASS_BREEDER                                      (SYS_FLAGS + 0x28)
 #define FLAG_SYS_CLASS_RANGER                                       (SYS_FLAGS + 0x29)
 #define FLAG_SYS_CLASS_MERCENARY                                    (SYS_FLAGS + 0x2A)
-#define FLAG_SYS_CLASS_RESEARCHER                                   (SYS_FLAGS + 0x2B)
+#define FLAG_SYS_CLASS_TRAINER                                      (SYS_FLAGS + 0x2B)
 #define FLAG_0x82C                                                  (SYS_FLAGS + 0x2C)
 #define FLAG_SYS_SET_TRAINER_CARD_PROFILE                           (SYS_FLAGS + 0x2D)
 #define FLAG_SYS_POKEMON_GET                                        (SYS_FLAGS + 0x2E)
