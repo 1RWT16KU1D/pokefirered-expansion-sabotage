@@ -6620,7 +6620,7 @@ BattleScript_AbilityHpHeal::
 	return
 
 BattleScript_EverflowHPHealText::
-	printstring STRINGID_PKMNRESTOREDHPUSING
+	printstring STRINGID_EVERFLOWRESTOREDHP
 	waitmessage B_WAIT_TIME_LONG
 	return
 
