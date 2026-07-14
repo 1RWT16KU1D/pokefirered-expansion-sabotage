@@ -5574,6 +5574,9 @@ enum Type TrySetAteType(u32 move, u32 battlerAtk, enum Ability attackerAbility)
     case ABILITY_GALVANIZE:
         ateType = TYPE_ELECTRIC;
         break;
+    case ABILITY_AGONIZE:
+        ateType = TYPE_DARK;
+        break;
     default:
         ateType = TYPE_NONE;
         break;

@@ -10266,9 +10266,10 @@ static void TryPlayStatChangeAnimation(u32 battler, enum Ability ability, u32 st
 
 static u32 ChangeStatBuffs(u32 battler, s8 statValue, enum Stat statId, union StatChangeFlags flags, u32 stats, const u8 *BS_ptr)
 {
-    u32 index, battlerAbility;
+    u32 index, battlerAbility, partnerAbility;
     enum HoldEffect battlerHoldEffect;
     battlerAbility = GetBattlerAbility(battler);
+    partnerAbility = GetBattlerAbility(BATTLE_PARTNER(battler));
     battlerHoldEffect = GetBattlerHoldEffect(battler);
     gSpecialStatuses[battler].changedStatsBattlerId = gBattlerAttacker;
 
@@ -10318,7 +10319,7 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, enum Stat statId, union St
         {
             return STAT_CHANGE_DIDNT_WORK;
         }
-        else if ((battlerHoldEffect == HOLD_EFFECT_CLEAR_AMULET || CanAbilityPreventStatLoss(battlerAbility))
+        else if ((battlerHoldEffect == HOLD_EFFECT_CLEAR_AMULET || CanAbilityPreventStatLoss(battlerAbility) || CanAbilityPreventStatLoss(partnerAbility))
               && (flags.statDropPrevention || gBattlerAttacker != gBattlerTarget || flags.mirrorArmored) && !flags.certain && gCurrentMove != MOVE_CURSE)
         {
             if (flags.allowPtr)
@@ -14743,6 +14744,7 @@ static bool32 CanAbilityPreventStatLoss(enum Ability abilityDef)
     case ABILITY_CLEAR_BODY:
     case ABILITY_FULL_METAL_BODY:
     case ABILITY_WHITE_SMOKE:
+    case ABILITY_SYLVAN_WARD:
         return TRUE;
     default:
         break;

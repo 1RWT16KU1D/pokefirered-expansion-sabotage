@@ -2405,11 +2405,39 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .cantBeTraced = TRUE,
     },
 
+    [ABILITY_SYLVAN_SANCTUARY] =
+    {
+        .name = _("Sylvan Sanctuary"),
+        .description = COMPOUND_STRING("Lowers damage to ally side."),
+        .aiRating = 9,
+    },
+    
+    [ABILITY_AGONIZE] =
+    {
+        .name = _("Agonize"),
+        .description = COMPOUND_STRING("Normal moves become Dark."),
+        .aiRating = 9,
+    },
+
     [ABILITY_REJUVENATE] =
     {
         .name = _("Rejuvenate"),
         .description = COMPOUND_STRING("Restores 1/16 max HP every turn."),
         .aiRating = 9,
+    },
+
+    [ABILITY_SYLVAN_WARD] =
+    {
+        .name = _("Sylvan Ward"),
+        .description = COMPOUND_STRING("Lowers damage to ally side and prevents stat drops."),
+        .aiRating = 10,
+    },
+
+    [ABILITY_VICIOUS_REND] =
+    {
+        .name = _("Vicious Rend"),
+        .description = COMPOUND_STRING("Boosts physical moves and they ignore Protect."),
+        .aiRating = 10,
     },
 
     [ABILITY_EVERFLOW] =
