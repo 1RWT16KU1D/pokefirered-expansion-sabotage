@@ -15421,7 +15421,7 @@ Class: Developer
 Pic: RS Gentleman
 Gender: Male
 Music: Male
-Items : Tera Orb / Mega Ring / None / None
+Items : Mega Ring / None / None / None
 Double Battle: No
 AI: Try To Faint / Check Viability
 
@@ -15430,11 +15430,10 @@ Level: 50
 IVs: 31 HP / 31 Atk / 31 Def / 0 SpA / 31 SpD / 31 Spe
 EVs: 252 HP / 252 Atk / 0 Def / 0 SpA / 0 SpD / 4 Spe
 Shiny: Yes
-Tera Type: Poison
 - Cross Poison
 - Night Slash
-- Swords Dance
 - Earthquake
+- X-Scissor
 
 Aggron @ Aggronite
 Level: 50

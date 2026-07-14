@@ -6609,12 +6609,19 @@ BattleScript_ReceiverActivates::
 	switchinabilities BS_ABILITY_BATTLER
 	return
 
-BattleScript_AbilityHpHeal:
+BattleScript_AbilityHpHeal::
 	call BattleScript_AbilityPopUp
-	printstring STRINGID_PKMNSXRESTOREDHPALITTLE2
-	waitmessage B_WAIT_TIME_LONG
+	playanimation BS_ATTACKER, B_ANIM_SIMPLE_HEAL
 	healthbarupdate BS_ATTACKER, PASSIVE_HP_UPDATE
 	datahpupdate BS_ATTACKER, PASSIVE_HP_UPDATE
+	jumpifability BS_ATTACKER, ABILITY_EVERFLOW, BattleScript_EverflowHPHealText
+	printstring STRINGID_PKMNSXRESTOREDHPALITTLE2
+	waitmessage B_WAIT_TIME_LONG
+	return
+
+BattleScript_EverflowHPHealText::
+	printstring STRINGID_PKMNRESTOREDHPUSING
+	waitmessage B_WAIT_TIME_LONG
 	return
 
 BattleScript_RainDishActivates::

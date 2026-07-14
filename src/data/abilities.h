@@ -2404,4 +2404,18 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
     },
+
+    [ABILITY_REJUVENATE] =
+    {
+        .name = _("Rejuvenate"),
+        .description = COMPOUND_STRING("Restores 1/16 max HP every turn."),
+        .aiRating = 9,
+    },
+
+    [ABILITY_EVERFLOW] =
+    {
+        .name = _("Everflow"),
+        .description = COMPOUND_STRING("Restores 1/2 max HP this once."),
+        .aiRating = 9,
+    },
 };

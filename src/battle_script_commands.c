@@ -13819,7 +13819,7 @@ static void Cmd_handleballthrow(void)
         if (gBattleMons[gBattlerTarget].status1 & STATUS1_CAN_MOVE)
             odds = (odds * 15) / 10;
         if (FlagGet(FLAG_SYS_CLASS_RANGER))
-            odds = (odds * 11) / 10;
+            odds = (odds * 12) / 10;
 
         if (gBattleResults.catchAttempts[ballId] < 255)
             gBattleResults.catchAttempts[ballId]++;

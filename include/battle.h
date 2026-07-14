@@ -598,9 +598,10 @@ struct BattlerState
     u32 canPickupItem:1;
     u32 ateBoost:1;
     u32 wasAboveHalfHp:1; // For Berserk, Emergency Exit, Wimp Out and Anger Shell.
+    u32 everflowHealDone:1;
     u32 commanderSpecies:11;
     u32 selectionScriptFinished:1;
-    u32 padding:3;
+    u32 padding:2;
     // End of Word
 };
 

@@ -39639,7 +39639,7 @@
 #line 15423
             TRAINER_ENCOUNTER_MUSIC_MALE,
 #line 15424
-        .items = { ITEM_TERA_ORB, ITEM_MEGA_RING, ITEM_NONE, ITEM_NONE },
+        .items = { ITEM_MEGA_RING, ITEM_NONE, ITEM_NONE, ITEM_NONE },
 #line 15425
         .battleType = TRAINER_BATTLE_TYPE_SINGLES,
 #line 15426
@@ -39665,32 +39665,30 @@
 #line 15432
             .isShiny = TRUE,
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
-#line 15433
-            .teraType = TYPE_POISON,
             .moves = {
-#line 15434
+#line 15433
                 MOVE_CROSS_POISON,
                 MOVE_NIGHT_SLASH,
-                MOVE_SWORDS_DANCE,
                 MOVE_EARTHQUAKE,
+                MOVE_X_SCISSOR,
             },
             },
             {
-#line 15439
+#line 15438
             .species = SPECIES_AGGRON,
             .gender = TRAINER_MON_RANDOM_GENDER,
-#line 15439
+#line 15438
             .heldItem = ITEM_AGGRONITE,
-#line 15442
-            .ev = TRAINER_PARTY_EVS(252, 4, 252, 0, 0, 0),
 #line 15441
-            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 0, 31),
+            .ev = TRAINER_PARTY_EVS(252, 4, 252, 0, 0, 0),
 #line 15440
+            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 0, 31),
+#line 15439
             .lvl = 50,
             .nature = NATURE_HARDY,
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
             .moves = {
-#line 15443
+#line 15442
                 MOVE_BODY_PRESS,
                 MOVE_IRON_DEFENSE,
                 MOVE_EARTHQUAKE,

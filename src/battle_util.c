@@ -4558,6 +4558,20 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
                 effect++;
             }
             break;
+        case ABILITY_EVERFLOW:
+            if (!gBattleStruct->battlerState[battler].everflowHealDone)
+            {
+                gBattleStruct->battlerState[battler].everflowHealDone = TRUE; // Permanently consumed
+                
+                if (!IsBattlerAtMaxHp(battler) && !gBattleMons[battler].volatiles.healBlock)
+                {
+                    s32 healAmount = 2;
+                    SetHealAmount(battler, GetNonDynamaxMaxHP(battler) / healAmount);
+                    BattleScriptExecute(BattleScript_RainDishActivates);
+                    effect++;
+                }
+            }
+            break;
         default:
             break;
         }
@@ -4786,6 +4800,17 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
                 else if (!gDisableStructs[battler].cudChew && GetItemPocket(GetBattlerPartyState(battler)->usedHeldItem) == POCKET_BERRIES)
                 {
                     gDisableStructs[battler].cudChew = TRUE;
+                }
+                break;
+
+            case ABILITY_REJUVENATE:
+                if (!IsBattlerAtMaxHp(battler)
+                 && !gBattleMons[battler].volatiles.healBlock)
+                {
+                    s32 healAmount = 16;
+                    SetHealAmount(battler, GetNonDynamaxMaxHP(battler) / healAmount);
+                    BattleScriptExecute(BattleScript_RainDishActivates);
+                    effect++;
                 }
                 break;
             default:
