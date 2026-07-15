@@ -6614,13 +6614,7 @@ BattleScript_AbilityHpHeal::
 	playanimation BS_ATTACKER, B_ANIM_SIMPLE_HEAL
 	healthbarupdate BS_ATTACKER, PASSIVE_HP_UPDATE
 	datahpupdate BS_ATTACKER, PASSIVE_HP_UPDATE
-	jumpifability BS_ATTACKER, ABILITY_EVERFLOW, BattleScript_EverflowHPHealText
 	printstring STRINGID_PKMNSXRESTOREDHPALITTLE2
-	waitmessage B_WAIT_TIME_LONG
-	return
-
-BattleScript_EverflowHPHealText::
-	printstring STRINGID_EVERFLOWRESTOREDHP
 	waitmessage B_WAIT_TIME_LONG
 	return
 
@@ -6629,7 +6623,12 @@ BattleScript_RainDishActivates::
 	end2
 
 BattleScript_EverflowActivates::
-	call BattleScript_AbilityHpHeal
+	call BattleScript_AbilityPopUp
+	playanimation BS_ATTACKER, B_ANIM_SIMPLE_HEAL
+	healthbarupdate BS_ATTACKER, PASSIVE_HP_UPDATE
+	datahpupdate BS_ATTACKER, PASSIVE_HP_UPDATE
+	printstring STRINGID_EVERFLOWRESTOREDHP
+	waitmessage B_WAIT_TIME_LONG
 	end3
 
 BattleScript_CheekPouchActivates::

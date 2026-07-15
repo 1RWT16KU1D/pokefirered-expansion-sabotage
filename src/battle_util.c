@@ -4567,7 +4567,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
                 effect++;
             }
             break;
-        case ABILITY_SYLVAN_WARD:
+        case ABILITY_SYLVAN_DOMINION:
             if (!gSpecialStatuses[battler].switchInAbilityDone)
             {
                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_SYLVAN_WARD;
@@ -4831,6 +4831,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
                 break;
 
             case ABILITY_REJUVENATE:
+            case ABILITY_EVERFLOW:
                 if (!IsBattlerAtMaxHp(battler)
                  && !gBattleMons[battler].volatiles.healBlock)
                 {
@@ -6575,7 +6576,7 @@ bool32 IsBattlerProtected(u32 battlerAtk, u32 battlerDef, u32 move)
          && IsMoveMakingContact(battlerAtk, battlerDef, ABILITY_UNSEEN_FIST, GetBattlerHoldEffect(battlerAtk), move))
             return FALSE;
         if (GetBattlerAbility(battlerAtk) == ABILITY_VICIOUS_REND
-         && IsBattleMovePhysical(move))
+         && IsMoveMakingContact(battlerAtk, battlerDef, ABILITY_VICIOUS_REND, GetBattlerHoldEffect(battlerAtk), move))
             return FALSE;
     }
 
@@ -7358,6 +7359,10 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
         if (moveType == TYPE_DARK && gBattleStruct->battlerState[battlerAtk].ateBoost)
             modifier = uq4_12_multiply(modifier, UQ_4_12(GetGenConfig(GEN_CONFIG_ATE_MULTIPLIER) >= GEN_7 ? 1.2 : 1.3));
         break;
+    case ABILITY_VICIOUS_REND:
+        if (moveType == TYPE_DARK && gBattleStruct->battlerState[battlerAtk].ateBoost)
+            modifier = uq4_12_multiply(modifier, UQ_4_12(GetGenConfig(GEN_CONFIG_ATE_MULTIPLIER) >= GEN_7 ? 1.25 : 1.35));
+        break;
     case ABILITY_PUNK_ROCK:
         if (IsSoundMove(move))
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
@@ -7373,9 +7378,6 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
     case ABILITY_SUPREME_OVERLORD:
         modifier = uq4_12_multiply(modifier, GetSupremeOverlordModifier(battlerAtk));
         break;
-    case ABILITY_VICIOUS_REND:
-        if (IsBattleMovePhysical(move))
-            modifier = uq4_12_multiply(modifier, UQ_4_12(1.25));
     default:
         break;
     }
@@ -8233,7 +8235,7 @@ static inline uq4_12_t GetDefenderAbilitiesModifier(struct DamageContext *ctx)
         modifier = UQ_4_12(0.85);
         recordAbility = TRUE;
         break;
-    case ABILITY_SYLVAN_WARD: // Flat 20% Damage Reduction
+    case ABILITY_SYLVAN_DOMINION: // Flat 20% Damage Reduction
         modifier = UQ_4_12(0.8);
         recordAbility = TRUE;
         break;
@@ -8260,7 +8262,7 @@ static inline uq4_12_t GetDefenderPartnerAbilitiesModifier(u32 battlerPartnerDef
     case ABILITY_SYLVAN_SANCTUARY: // Flat 15% Damage Reduction
         return UQ_4_12(0.85);
         break;
-    case ABILITY_SYLVAN_WARD: // Flat 20% Damage Reduction
+    case ABILITY_SYLVAN_DOMINION: // Flat 20% Damage Reduction
         return UQ_4_12(0.8);
         break;
     default:

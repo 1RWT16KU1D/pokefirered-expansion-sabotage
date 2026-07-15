@@ -14744,7 +14744,7 @@ static bool32 CanAbilityPreventStatLoss(enum Ability abilityDef)
     case ABILITY_CLEAR_BODY:
     case ABILITY_FULL_METAL_BODY:
     case ABILITY_WHITE_SMOKE:
-    case ABILITY_SYLVAN_WARD:
+    case ABILITY_SYLVAN_DOMINION:
         return TRUE;
     default:
         break;

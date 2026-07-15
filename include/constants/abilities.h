@@ -338,9 +338,9 @@ enum __attribute__((packed)) Ability
     ABILITY_SYLVAN_SANCTUARY = 311, // Flat 15% Damage Reduction to ally side. Done
     ABILITY_AGONIZE = 312, // Dark-type version of Galvanize, turns Normal-type moves into Dark-type moves and boosts their power by 20%. Done
     ABILITY_REJUVENATE = 313, // Restores 1/16 of max HP at the end of each turn, Leftovers in ability form. Done
-    ABILITY_SYLVAN_WARD = 314, // Provides 20% Damage Reduction to ally side and also prevents status conditions and stat drops. Done
-    ABILITY_VICIOUS_REND = 315, // Boosts the power of Physical moves by 25% and makes them ignore Protect and Detect and their variants. Done
-    ABILITY_EVERFLOW = 316, // Heals the user for 1/2 of their max HP once per battle (Will trigger on Mega Evolution). Done
+    ABILITY_SYLVAN_DOMINION = 314, // Provides 20% Damage Reduction to ally side and also prevents stat drops. Done
+    ABILITY_VICIOUS_REND = 315, // Agnoize with a 25% power boost instead and makes contact moves ignore Protect and Detect and their variants. Done
+    ABILITY_EVERFLOW = 316, // Heals the user for 1/2 of their max HP once per battle (Will trigger on Mega Evolution) and heal 1/16 of max HP at the end of each turn. Done
     ABILITIES_COUNT,
 };
 

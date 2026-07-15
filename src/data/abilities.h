@@ -2426,9 +2426,9 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 9,
     },
 
-    [ABILITY_SYLVAN_WARD] =
+    [ABILITY_SYLVAN_DOMINION] =
     {
-        .name = _("Sylvan Ward"),
+        .name = _("Sylvan Dominion"),
         .description = COMPOUND_STRING("Lowers damage to ally side and prevents stat drops."),
         .aiRating = 10,
     },
@@ -2436,14 +2436,14 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_VICIOUS_REND] =
     {
         .name = _("Vicious Rend"),
-        .description = COMPOUND_STRING("Boosts physical moves and they ignore Protect."),
+        .description = COMPOUND_STRING("Normal moves turn Dark. Contact moves bypass Protect."),
         .aiRating = 10,
     },
 
     [ABILITY_EVERFLOW] =
     {
         .name = _("Everflow"),
-        .description = COMPOUND_STRING("Restores 1/2 max HP this once."),
+        .description = COMPOUND_STRING("Restores 1/2 max HP this once, 1/16 max HP every turn."),
         .aiRating = 9,
     },
 };
