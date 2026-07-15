@@ -4594,7 +4594,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
                 {
                     s32 healAmount = 2;
                     SetHealAmount(battler, GetNonDynamaxMaxHP(battler) / healAmount);
-                    BattleScriptExecute(BattleScript_RainDishActivates);
+                    BattleScriptPushCursorAndCallback(BattleScript_EverflowActivates);
                     effect++;
                 }
             }

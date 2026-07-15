@@ -39660,7 +39660,7 @@
 #line 15430
             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 0, 31),
 #line 15429
-            .lvl = 50,
+            .lvl = 65,
             .nature = NATURE_HARDY,
 #line 15432
             .isShiny = TRUE,
@@ -39684,7 +39684,7 @@
 #line 15440
             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 0, 31),
 #line 15439
-            .lvl = 50,
+            .lvl = 65,
             .nature = NATURE_HARDY,
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
             .moves = {
