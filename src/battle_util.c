@@ -6538,8 +6538,11 @@ bool32 CanBattlerAvoidContactEffects(u32 battlerAtk, u32 battlerDef, enum Abilit
 
 bool32 IsMoveMakingContact(u32 battlerAtk, u32 battlerDef, enum Ability abilityAtk, enum HoldEffect holdEffectAtk, u32 move)
 {
-    if (!(MoveMakesContact(move) || (GetMoveEffect(move) == EFFECT_SHELL_SIDE_ARM
-                                  && gBattleStruct->shellSideArmCategory[battlerAtk][battlerDef] == DAMAGE_CATEGORY_PHYSICAL)))
+    if (!(MoveMakesContact(move)
+       || (GetMoveEffect(move) == EFFECT_SHELL_SIDE_ARM
+          && gBattleStruct->shellSideArmCategory[battlerAtk][battlerDef] == DAMAGE_CATEGORY_PHYSICAL)
+       || (GetMoveEffect(move) == EFFECT_ORION_WAVE
+          && gBattleStruct->orionWaveCategory[battlerAtk][battlerDef] == DAMAGE_CATEGORY_PHYSICAL)))
     {
         return FALSE;
     }
@@ -7858,7 +7861,39 @@ static inline u32 CalcDefenseStat(struct DamageContext *ctx)
     def = gBattleMons[battlerDef].defense;
     spDef = gBattleMons[battlerDef].spDefense;
 
-    if (moveEffect == EFFECT_PSYSHOCK || IsBattleMovePhysical(move)) // uses defense stat instead of sp.def
+    if (moveEffect == EFFECT_ORION_WAVE)
+    {
+        u8 orionDefenseStat = gBattleStruct->orionWaveDefenseStat[ctx->battlerAtk][battlerDef];
+        if (orionDefenseStat == STAT_DEF)
+        {
+            if (gFieldStatuses & STATUS_FIELD_WONDER_ROOM)
+            {
+                defStat = spDef;
+                usesDefStat = FALSE;
+            }
+            else
+            {
+                defStat = def;
+                usesDefStat = TRUE;
+            }
+            defStage = gBattleMons[battlerDef].statStages[STAT_DEF];
+        }
+        else
+        {
+            if (gFieldStatuses & STATUS_FIELD_WONDER_ROOM)
+            {
+                defStat = def;
+                usesDefStat = TRUE;
+            }
+            else
+            {
+                defStat = spDef;
+                usesDefStat = FALSE;
+            }
+            defStage = gBattleMons[battlerDef].statStages[STAT_SPDEF];
+        }
+    }
+    else if (moveEffect == EFFECT_PSYSHOCK || IsBattleMovePhysical(move)) // uses defense stat instead of sp.def
     {
         if (gFieldStatuses & STATUS_FIELD_WONDER_ROOM) // the defense stats are swapped
         {
@@ -9601,14 +9636,14 @@ enum DamageCategory GetBattleMoveCategory(u32 move)
 
 void SetDynamicMoveCategory(u32 battlerAtk, u32 battlerDef, u32 move)
 {
+    gBattleStruct->swapDamageCategory = FALSE;
     switch (GetMoveEffect(move))
     {
     case EFFECT_PHOTON_GEYSER:
         gBattleStruct->swapDamageCategory = (GetCategoryBasedOnStats(battlerAtk) == DAMAGE_CATEGORY_PHYSICAL);
         break;
     case EFFECT_SHELL_SIDE_ARM:
-        if (gBattleStruct->shellSideArmCategory[battlerAtk][battlerDef] == DAMAGE_CATEGORY_PHYSICAL)
-            gBattleStruct->swapDamageCategory = TRUE;
+        gBattleStruct->swapDamageCategory = (gBattleStruct->shellSideArmCategory[battlerAtk][battlerDef] == DAMAGE_CATEGORY_PHYSICAL);
         break;
     case EFFECT_TERA_BLAST:
         if (GetActiveGimmick(battlerAtk) == GIMMICK_TERA)
@@ -9617,6 +9652,10 @@ void SetDynamicMoveCategory(u32 battlerAtk, u32 battlerDef, u32 move)
     case EFFECT_TERA_STARSTORM:
         if (GetActiveGimmick(battlerAtk) == GIMMICK_TERA && GET_BASE_SPECIES_ID(GetMonData(GetBattlerMon(battlerAtk), MON_DATA_SPECIES)) == SPECIES_TERAPAGOS)
             gBattleStruct->swapDamageCategory = GetCategoryBasedOnStats(battlerAtk) == DAMAGE_CATEGORY_PHYSICAL;
+        break;
+    case EFFECT_ORION_WAVE:
+        if (gBattleStruct->orionWaveCategory[battlerAtk][battlerDef] == DAMAGE_CATEGORY_PHYSICAL)
+            gBattleStruct->swapDamageCategory = TRUE;
         break;
     default:
         gBattleStruct->swapDamageCategory = FALSE;
@@ -10252,6 +10291,40 @@ void RemoveBattlerType(u32 battler, enum Type type)
     }
 }
 
+static s32 CalculateOrionWaveDamage(u32 battlerAtk, u32 battlerDef, u32 move, enum DamageCategory category, u8 defenseStat, u32 randomModifier)
+{
+    struct DamageContext ctx = {0};
+    s32 damage;
+
+    ctx.battlerAtk = battlerAtk;
+    ctx.battlerDef = battlerDef;
+    ctx.move = move;
+    ctx.chosenMove = move;
+    ctx.moveType = GetBattleMoveType(move);
+    ctx.updateFlags = FALSE;
+    ctx.randomFactor = FALSE;
+    ctx.isAnticipation = FALSE;
+    ctx.fixedBasePower = 0;
+    ctx.abilityAtk = GetBattlerAbility(battlerAtk);
+    ctx.abilityDef = GetBattlerAbility(battlerDef);
+    ctx.holdEffectAtk = GetBattlerHoldEffect(battlerAtk);
+    ctx.holdEffectDef = GetBattlerHoldEffect(battlerDef);
+    ctx.weather = GetWeather();
+    ctx.typeEffectivenessModifier = CalcTypeEffectivenessMultiplier(&ctx);
+
+    gBattleStruct->orionWaveDefenseStat[battlerAtk][battlerDef] = defenseStat;
+    gBattleStruct->swapDamageCategory = (category == DAMAGE_CATEGORY_PHYSICAL);
+
+    damage = CalculateMoveDamageVars(&ctx);
+    damage *= DMG_ROLL_PERCENT_HI - randomModifier;
+    damage /= 100;
+    damage = ApplyModifiersAfterDmgRoll(&ctx, damage);
+    if (damage == 0)
+        damage = 1;
+
+    return damage;
+}
+
 void SetShellSideArmCategory(void)
 {
     u32 battlerAtk, battlerDef;
@@ -10309,6 +10382,63 @@ void SetShellSideArmCategory(void)
                 gBattleStruct->shellSideArmCategory[battlerAtk][battlerDef] = DAMAGE_CATEGORY_SPECIAL;
         }
     }
+}
+
+void SetOrionWaveCategory(void)
+{
+    u32 battlerAtk, battlerDef;
+    u32 randomModifier;
+    s32 bestDamage;
+    s32 candidateDamage;
+    enum DamageCategory bestCategory;
+    u8 bestDefenseStat;
+
+    if (gBattleTypeFlags & BATTLE_TYPE_SAFARI)
+        return;
+
+    for (battlerAtk = 0; battlerAtk < gBattlersCount; battlerAtk++)
+    {
+        for (battlerDef = 0; battlerDef < gBattlersCount; battlerDef++)
+        {
+            if (battlerAtk == battlerDef)
+                continue;
+
+            randomModifier = RandomUniform(RNG_ORION_WAVE, 0, DMG_ROLL_PERCENT_HI - DMG_ROLL_PERCENT_LO);
+
+            bestDamage = CalculateOrionWaveDamage(battlerAtk, battlerDef, MOVE_ORION_WAVE, DAMAGE_CATEGORY_PHYSICAL, STAT_DEF, randomModifier);
+            bestCategory = DAMAGE_CATEGORY_PHYSICAL;
+            bestDefenseStat = STAT_DEF;
+
+            candidateDamage = CalculateOrionWaveDamage(battlerAtk, battlerDef, MOVE_ORION_WAVE, DAMAGE_CATEGORY_PHYSICAL, STAT_SPDEF, randomModifier);
+            if (candidateDamage > bestDamage)
+            {
+                bestDamage = candidateDamage;
+                bestCategory = DAMAGE_CATEGORY_PHYSICAL;
+                bestDefenseStat = STAT_SPDEF;
+            }
+
+            candidateDamage = CalculateOrionWaveDamage(battlerAtk, battlerDef, MOVE_ORION_WAVE, DAMAGE_CATEGORY_SPECIAL, STAT_DEF, randomModifier);
+            if (candidateDamage > bestDamage)
+            {
+                bestDamage = candidateDamage;
+                bestCategory = DAMAGE_CATEGORY_SPECIAL;
+                bestDefenseStat = STAT_DEF;
+            }
+
+            candidateDamage = CalculateOrionWaveDamage(battlerAtk, battlerDef, MOVE_ORION_WAVE, DAMAGE_CATEGORY_SPECIAL, STAT_SPDEF, randomModifier);
+            if (candidateDamage > bestDamage)
+            {
+                bestDamage = candidateDamage;
+                bestCategory = DAMAGE_CATEGORY_SPECIAL;
+                bestDefenseStat = STAT_SPDEF;
+            }
+
+            gBattleStruct->orionWaveCategory[battlerAtk][battlerDef] = bestCategory;
+            gBattleStruct->orionWaveDefenseStat[battlerAtk][battlerDef] = bestDefenseStat;
+        }
+    }
+
+    gBattleStruct->swapDamageCategory = FALSE;
 }
 
 bool32 CanTargetPartner(u32 battlerAtk, u32 battlerDef)

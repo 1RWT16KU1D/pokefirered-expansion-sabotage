@@ -39667,10 +39667,10 @@
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
             .moves = {
 #line 15433
-                MOVE_COSMIC_POWER,
-                MOVE_COSMIC_POWER,
-                MOVE_COSMIC_POWER,
-                MOVE_COSMIC_POWER,
+                MOVE_CROSS_POISON,
+                MOVE_NIGHT_SLASH,
+                MOVE_PSYCHO_CUT,
+                MOVE_FOCUS_ENERGY,
             },
             },
             {

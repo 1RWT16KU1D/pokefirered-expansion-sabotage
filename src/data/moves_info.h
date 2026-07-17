@@ -21225,7 +21225,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "High crit-ratio.\n"
             "Uses the user's higher\n"
             "attack stat for damage."),
-        .effect = EFFECT_PHOTON_GEYSER,
+        .effect = EFFECT_ORION_WAVE,
         .power = 90,
         .type = TYPE_WATER,
         .accuracy = 0,
