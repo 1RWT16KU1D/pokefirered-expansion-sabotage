@@ -8953,6 +8953,23 @@ BattleScript_SilphScopeUnveiled::
 	waitmessage B_WAIT_TIME_LONG
 	end2
 
+@ Custom Moves
+BattleScript_EphemeralBloomResetStatChangesBeforeDamage::
+	setbyte sB_ANIM_TURN, 1
+	playmoveanimation MOVE_EPHEMERAL_BLOOM
+	waitanimation
+	setbyte sB_ANIM_TURN, 0
+	printstring STRINGID_SPECTRALTHIEFSTEAL
+	waitmessage B_WAIT_TIME_LONG
+	flushtextbox
+	goto BattleScript_EffectSpectralThiefFromDamage
+
+BattleScript_EphemeralBloom::
+	attackcanceler
+	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
+	typecalc
+	tryspectralthiefsteal BattleScript_SpectralThiefSteal
+
 @ Sabotage Battles
 
 BattleScript_Sabotage_TrapActivationMsg::

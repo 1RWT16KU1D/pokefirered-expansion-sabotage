@@ -21177,6 +21177,70 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .battleAnimScript = gBattleAnimMove_MalignantChain,
     },
 
+    // Custom Moves
+    [MOVE_EPHEMERAL_BLOOM] =
+    {
+        .name = COMPOUND_STRING("Ephemeral Bloom"),
+        .description = COMPOUND_STRING(
+            "Resets the foe's\n"
+            "stat changes before\n"
+            "dealing damage."),
+        .effect = EFFECT_HIT,
+        .power = 90,
+        .type = TYPE_GRASS,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_HAZE,
+
+        }),
+        .battleAnimScript = gBattleAnimMove_EphemeralBloom,
+    },
+
+    [MOVE_MALEVOLENT_BLAZE] =
+    {
+        .name = COMPOUND_STRING("Malevolent Blaze"),
+        .description = COMPOUND_STRING(
+            "May cause burn.\n"
+            "Deals increased damage\n"
+            "to statused foes."),
+        .effect = EFFECT_DAMAGE_BOOST_ON_STATUS,
+        .power = 100,
+        .type = TYPE_FIRE,
+        .accuracy = 95,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 25,
+        }),
+        .battleAnimScript = gBattleAnimMove_MalevolentBlaze,
+    },
+
+    [MOVE_ORION_WAVE] =
+    {
+        .name = COMPOUND_STRING("Orion Wave"),
+        .description = COMPOUND_STRING(
+            "High crit-ratio.\n"
+            "Uses the user's higher\n"
+            "attack stat for damage."),
+        .effect = EFFECT_PHOTON_GEYSER,
+        .power = 90,
+        .type = TYPE_WATER,
+        .accuracy = 0,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .criticalHitStage = 1,
+        .battleAnimScript = gBattleAnimMove_OrionWave,
+    },
+
     // Z-Moves
     [MOVE_BREAKNECK_BLITZ] =
     {

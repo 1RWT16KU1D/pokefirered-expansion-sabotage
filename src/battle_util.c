@@ -7180,6 +7180,13 @@ static inline u32 CalcMoveBasePower(struct DamageContext *ctx)
     case EFFECT_LAST_RESPECTS:
         basePower += (basePower * min(100, GetBattlerSideFaintCounter(battlerAtk)));
         break;
+    case EFFECT_DAMAGE_BOOST_ON_STATUS:
+        // Damage boost if the target has any major status
+        if ((gBattleMons[battlerDef].status1
+            | (STATUS1_SLEEP * (ctx->abilityDef == ABILITY_COMATOSE)))
+            & (STATUS1_BURN | STATUS1_PSN_ANY | STATUS1_PARALYSIS | STATUS1_FROSTBITE | STATUS1_SLEEP))
+            basePower = uq4_12_multiply(basePower, UQ_4_12(1.25));
+        break;
     default:
         break;
     }

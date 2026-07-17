@@ -850,6 +850,12 @@ extern const u8 gBattleAnimMove_SupercellSlam[];
 extern const u8 gBattleAnimMove_PsychicNoise[];
 extern const u8 gBattleAnimMove_UpperHand[];
 extern const u8 gBattleAnimMove_MalignantChain[];
+
+// Custom Moves
+extern const u8 gBattleAnimMove_EphemeralBloom[];
+extern const u8 gBattleAnimMove_MalevolentBlaze[];
+extern const u8 gBattleAnimMove_OrionWave[];
+
 extern const u8 gBattleAnimMove_BreakneckBlitz[];
 extern const u8 gBattleAnimMove_AllOutPummeling[];
 extern const u8 gBattleAnimMove_SupersonicSkystrike[];

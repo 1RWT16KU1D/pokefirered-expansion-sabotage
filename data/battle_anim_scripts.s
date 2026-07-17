@@ -29434,6 +29434,16 @@ gBattleAnimSpecial_CriticalCaptureBallThrow::
 	jumpreteq -1, BallThrowTrainerBlock
 	goto BallThrowEnd
 
+@@@@@@@@@@ Custom Moves @@@@@@@@@@
+gBattleAnimMove_EphemeralBloom::
+	goto gBattleAnimMove_Moonblast
+
+gBattleAnimMove_MalevolentBlaze::
+	goto gBattleAnimMove_FlareBlitz
+
+gBattleAnimMove_OrionWave::
+	goto gBattleAnimMove_Psychic
+
 @@@@@@@@@@ Z MOVES @@@@@@@@@@
 gBattleAnimMove_BreakneckBlitz::
 	loadspritegfx ANIM_TAG_HOLLOW_ORB
