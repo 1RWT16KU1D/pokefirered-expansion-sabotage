@@ -8959,16 +8959,17 @@ BattleScript_EphemeralBloomResetStatChangesBeforeDamage::
 	playmoveanimation MOVE_EPHEMERAL_BLOOM
 	waitanimation
 	setbyte sB_ANIM_TURN, 0
-	printstring STRINGID_SPECTRALTHIEFSTEAL
+	printstring STRINGID_RESETSTARGETSSTATLEVELS
 	waitmessage B_WAIT_TIME_LONG
 	flushtextbox
-	goto BattleScript_EffectSpectralThiefFromDamage
+	goto BattleScript_HitFromCritCalc
 
 BattleScript_EphemeralBloom::
 	attackcanceler
 	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
 	typecalc
-	tryspectralthiefsteal BattleScript_SpectralThiefSteal
+	resettargetstatchangesbeforedamage BattleScript_EphemeralBloomResetStatChangesBeforeDamage
+	goto BattleScript_HitFromCritCalc
 
 @ Sabotage Battles
 

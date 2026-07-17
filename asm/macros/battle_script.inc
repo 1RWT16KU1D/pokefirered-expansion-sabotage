@@ -2473,3 +2473,8 @@
 	.byte \gen
 	.4byte \jumpInstr
 	.endm
+
+	.macro resettargetstatchangesbeforedamage jumpInstr:req
+	callnative BS_ResetTargetStatChangesBeforeDamage
+	.4byte \jumpInstr
+	.endm

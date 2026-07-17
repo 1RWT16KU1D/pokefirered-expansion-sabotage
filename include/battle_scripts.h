@@ -856,6 +856,9 @@ extern const u8 BattleScript_BattleTowerTrainerBattleWon[];
 extern const u8 BattleScript_MoveUsedLoafingAroundMsg[];
 extern const u8 BattleScript_OldMan_Pokedude_CaughtMessage[];
 
+// Custom Moves
+extern const u8 BattleScript_EphemeralBloom[];
+
 // Sabotage Battles
 extern const u8 BattleScript_Sabotage_TrapActivationMsg[];
 

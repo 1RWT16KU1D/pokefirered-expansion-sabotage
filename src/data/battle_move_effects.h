@@ -2237,6 +2237,13 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 0, // TODO: Assign points
     },
 
+    // Custom Moves
+    [EFFECT_RESET_TARGET_STAT_CHANGES_BEFORE_DAMAGE] =
+    {
+        .battleScript = BattleScript_EphemeralBloom,
+        .battleTvScore = 0, // TODO: Assign points
+    },
+
     [EFFECT_DAMAGE_BOOST_ON_STATUS] =
     {
         .battleScript = BattleScript_EffectHit,

@@ -999,6 +999,9 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
     [STRINGID_GHOSTWASMAROWAK]                      = COMPOUND_STRING("The GHOST was MAROWAK!\p\n"),
     [STRINGID_TRAINER1MON1COMEBACK]                 = COMPOUND_STRING("{B_TRAINER1_NAME}: {B_OPPONENT_MON1_NAME}, come back!"),
 
+    // Custom Moves
+    [STRINGID_TARGET_STAT_CHANGES_WERE_RESET]          = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX}'s stat changes were eliminated!"),
+
     // pokefirered strings
     [STRINGID_PKMNTRANSFERREDBILLSPC]        = gText_PkmnTransferredBillsPC,
     [STRINGID_PKMNBOXBILLSPCFULL]            = gText_PkmnTransferredBillsPCBoxFull,

@@ -21185,7 +21185,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "Resets the foe's\n"
             "stat changes before\n"
             "dealing damage."),
-        .effect = EFFECT_HIT,
+        .effect = EFFECT_RESET_TARGET_STAT_CHANGES_BEFORE_DAMAGE,
         .power = 90,
         .type = TYPE_GRASS,
         .accuracy = 100,
@@ -21193,10 +21193,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_HAZE,
-
-        }),
         .battleAnimScript = gBattleAnimMove_EphemeralBloom,
     },
 

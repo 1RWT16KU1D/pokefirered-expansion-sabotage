@@ -353,6 +353,8 @@ enum __attribute__((packed)) BattleMoveEffects
     EFFECT_STONE_AXE, // Not to be confused with MOVE_EFFECT_STEALTH_ROCK. They have two different activation timings.
     EFFECT_CEASELESS_EDGE, // Same applies to spikes
     
+    // Custom Moves
+    EFFECT_RESET_TARGET_STAT_CHANGES_BEFORE_DAMAGE, // Resets target's stat changes before damage is calculated
     EFFECT_DAMAGE_BOOST_ON_STATUS, // Boosts damage by 25% if opponent has a status
     NUM_BATTLE_MOVE_EFFECTS,
 };
